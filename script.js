@@ -103,7 +103,6 @@ let mapMarkerClickBound = false;
 const venueFallbackPosition = [41.33277, 21.53917];
 const venueQueries = ['8GMQ+7R Prilep', 'Ла каса гранде Prilep'];
 const venueLabel = 'Ла каса гранде, 8GMQ+7R Prilep';
-const venueAppleAddress = 'Aleksandar Makedonski 7513 Prilep North Macedonia';
 
 const isIOSDevice = () => {
   const ua = navigator.userAgent || '';
@@ -113,11 +112,11 @@ const isIOSDevice = () => {
 const buildGoogleMapsDirectionsUrl = (position) =>
   `https://www.google.com/maps/dir/?api=1&destination=${position[0]},${position[1]}`;
 
-const buildAppleMapsDirectionsUrl = () =>
-  `https://maps.apple.com/?daddr=${encodeURIComponent(venueAppleAddress)}`;
+const buildAppleMapsDirectionsUrl = (position) =>
+  `https://maps.apple.com/?daddr=${position[0]},${position[1]}`;
 
 const openExternalMaps = (position) => {
-  const url = isIOSDevice() ? buildAppleMapsDirectionsUrl() : buildGoogleMapsDirectionsUrl(position);
+  const url = isIOSDevice() ? buildAppleMapsDirectionsUrl(position) : buildGoogleMapsDirectionsUrl(position);
   window.open(url, '_blank', 'noopener');
 };
 
@@ -157,7 +156,7 @@ const setVenueMarker = (position) => {
   }
 
   mapMarker.bindPopup(
-    `<strong>${venueLabel}</strong><br><a href="${buildGoogleMapsDirectionsUrl(position)}" target="_blank" rel="noopener">Google Maps</a> · <a href="${buildAppleMapsDirectionsUrl()}" target="_blank" rel="noopener">Apple Maps</a>`
+    `<strong>${venueLabel}</strong><br><a href="${buildGoogleMapsDirectionsUrl(position)}" target="_blank" rel="noopener">Google Maps</a> · <a href="${buildAppleMapsDirectionsUrl(position)}" target="_blank" rel="noopener">Apple Maps</a>`
   );
 
   if (!mapMarkerClickBound) {
