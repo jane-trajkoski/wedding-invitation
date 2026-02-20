@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ivona & Filip – Wedding Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Marck+Script&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="invite">
+    <header class="hero fade-target">
+      <div
+        class="hero-media parallax"
+        data-speed="0.22"
+        data-max-shift="180"
+        role="img"
+        aria-label="Filip and Ivona embracing"
+      ></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        
+        <h1>Филип & Ивона</h1>
+
+      </div>
+    </header>
+    <section class="photo-block photo-block--hero fade-target">
+      <div
+        class="photo-block-media"
+        role="img"
+        aria-label="Ivona and Filip embracing close-up"
+      ></div>
+      <div class="photo-block-overlay"></div>
+      <section class="story-card story-card--float fade-target">
+        <h2>
+          Со голема радост, ве покануваме да бидете дел од нашиот најубав ден.
+        </h2>
+        <p class="date">25.07.2026</p>
+        <p class="location location-trigger" id="openMapBtn" role="button" tabindex="0" aria-controls="mapSheet" aria-expanded="false">Ла каса гранде</p>
+        <p class="date-time">Прием: 19:00 - 19:30</p>
+        <p class="accept">Ве молиме потврдете го вашето присуство.</p>
+      </section>
+    </section>
+
+  </main>
+
+  <div class="map-backdrop" id="mapBackdrop" hidden></div>
+  <section class="map-sheet" id="mapSheet" aria-hidden="true" aria-labelledby="mapTitle">
+    <button class="map-close" id="closeMapBtn" type="button" aria-label="Close map">×</button>
+    <div class="map-sheet-header">
+      <h2 id="mapTitle">Ла каса гранде</h2>
+    </div>
+    <div class="map-panel">
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

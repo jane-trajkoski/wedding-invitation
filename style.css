@@ -1,0 +1,569 @@
+:root {
+  --bg: #f8f0ed;
+  --bg-soft: #fdf7f4;
+  --rose: #d87a8b;
+  --rose-dark: #9f3d55;
+  --blush: #f4d7da;
+  --ink: #2f2225;
+  --muted: rgba(47, 34, 37, 0.7);
+  --edge: 20px;
+  --map-height: clamp(320px, 70vh, 520px);
+  --photo-height: clamp(420px, 86vh, 720px);
+  --story-rise: clamp(180px, 48vh, 420px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Marck Script", cursive;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 55%, #fff 100%);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: auto;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(0);
+  opacity: 0.6;
+}
+
+body::before {
+  top: -20vmax;
+  right: -20vmax;
+  background: radial-gradient(circle, rgba(248, 195, 203, 0.9) 0%, rgba(248, 195, 203, 0) 65%);
+}
+
+body::after {
+  bottom: -30vmax;
+  left: -20vmax;
+  background: radial-gradient(circle, rgba(216, 122, 139, 0.35) 0%, rgba(216, 122, 139, 0) 70%);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.invite {
+  width: 100%;
+  max-width: 475px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Marck Script", cursive;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(3rem, 6vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4.2vw, 2.2rem);
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: none;
+  justify-content: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  width: 18px;
+  height: 18px;
+  border-right: 3px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.95);
+  transform: translateX(-50%) rotate(45deg);
+  animation: scroll-chevron-bounce 1.6s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes scroll-chevron-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0) rotate(45deg);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px) rotate(45deg);
+    opacity: 1;
+  }
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  background-image: url("filip-ivona.jpg");
+  background-size: cover;
+  background-position: center center;
+  transform: translateY(var(--parallax-y, 0px)) scale(1.03);
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 215, 218, 0.2) 0%,
+    rgba(216, 122, 139, 0.75) 70%,
+    rgba(159, 61, 85, 0.92) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 28px var(--edge) 32px;
+  color: #fff;
+  text-align: left;
+  text-shadow: 0 8px 18px rgba(32, 18, 23, 0.4);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.date,
+.location {
+  font-size: 1rem;
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.story-card--float .date-time {
+  font-size: 2rem;
+  margin-block: 2rem;
+
+}
+
+
+.story-card,
+.rsvp {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(8px);
+  border-radius: 0;
+  padding: 24px var(--edge) 28px;
+  text-align: left;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+}
+
+.story-card,
+.rsvp {
+  margin-bottom: -112px;
+}
+
+.rsvp {
+  margin-bottom: -96px;
+}
+
+.story-card p {
+  margin: 0 0 16px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.story-card p:last-of-type {
+  margin-bottom: 22px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(216, 122, 139, 0.3);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.timeline .time {
+  font-weight: 600;
+  color: var(--rose-dark);
+  min-width: 64px;
+}
+
+.timeline .label {
+  color: var(--muted);
+  text-align: right;
+}
+
+.photo-block {
+  position: relative;
+  z-index: 1;
+  background: #111;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.story-image {
+  height: var(--photo-height);
+  object-fit: cover;
+}
+
+.story-image.parallax {
+  transform: translateY(var(--parallax-y, 0px)) scale(1.02);
+  will-change: transform;
+}
+
+.our-day-scene {
+  position: relative;
+  padding-bottom: var(--story-rise);
+}
+
+.photo-block--hero {
+  position: relative;
+  height: var(--photo-height);
+  overflow: hidden;
+}
+
+.photo-block-media {
+  position: absolute;
+  inset: 0;
+  background-image: url("filip-ivona-two.jpg");
+  background-size: cover;
+  background-position: center center;
+  transform: scale(1.015);
+}
+
+.photo-block-overlay {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.14) 0%,
+    rgba(0, 0, 0, 0.1) 48%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.story-card--float {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem 1.375rem 1rem 1.375rem;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 19, 24, 0.18) 0%,
+    rgba(30, 19, 24, 0.66) 56%,
+    rgba(30, 19, 24, 0.84) 100%
+  );
+  backdrop-filter: none;
+}
+
+.story-card--float h2,
+.story-card--float p {
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 10px 24px rgb(157 45 125 / 46%);
+  text-align: center;
+}
+
+.story-card--float .date {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.story-card--float .location {
+  font-size: 2.25rem;
+  color: #fff;
+}
+
+.story-card--float .location.location-trigger {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-card--float .location.location-trigger::before {
+  content: "";
+  display: inline-block;
+  width: 0.76em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z'/%3E%3Ccircle cx='12' cy='10' r='3.1' fill='%239d2d7d'/%3E%3C/svg%3E");
+  transform: translateY(0.09em);
+}
+
+.story-card--float .accept {
+  font-size: 1.75rem;
+  color: #fff;
+  text-decoration: underline;
+  margin-bottom: 0 !important;
+}
+
+.js-enabled .story-card--float > * {
+  opacity: 0;
+  transform: translateY(44px);
+}
+
+.js-enabled .story-card--float.text-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.js-enabled .story-card--float.text-visible p:nth-of-type(1) {
+  transition-delay: 0.12s;
+}
+
+.js-enabled .story-card--float.text-visible p:nth-of-type(2) {
+  transition-delay: 0.2s;
+}
+
+.photo-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 32px var(--edge) 28px;
+  text-align: left;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 12, 15, 0) 0%,
+    rgba(20, 12, 15, 0.6) 60%,
+    rgba(20, 12, 15, 0.82) 100%
+  );
+  color: #fff;
+  text-shadow: 0 10px 18px rgba(10, 6, 8, 0.5);
+}
+
+.photo-caption h3 {
+  color: #fff;
+}
+
+.photo-caption p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.section-intro {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+button {
+  font-family: inherit;
+  padding: 14px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--rose);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(216, 122, 139, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(216, 122, 139, 0.4);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: var(--rose-dark);
+  border: 1px solid rgba(159, 61, 85, 0.4);
+  box-shadow: none;
+}
+
+.ghost-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+#rsvpStatus {
+  margin-top: 14px;
+  font-weight: 500;
+}
+
+.map-section {
+  text-align: left;
+  position: relative;
+}
+
+.map-panel {
+  margin-top: 0;
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 -10px 28px rgba(16, 10, 14, 0.18);
+}
+
+.parallax {
+  will-change: transform;
+}
+
+#map {
+  height: clamp(320px, 62vh, 520px);
+}
+
+.map-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(16, 10, 14, 0.42);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.map-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.map-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 14px 0 0;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -20px 44px rgba(16, 10, 14, 0.24);
+  transform: translateY(104%);
+  transition: transform 0.34s ease;
+}
+
+.map-sheet.is-open {
+  transform: translateY(0);
+}
+
+.map-sheet-header {
+  padding: 8px var(--edge) 14px;
+}
+
+.map-sheet-header h2 {
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.map-sheet-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.map-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(47, 34, 37, 0.08);
+  color: var(--ink);
+  font-size: 3rem;
+  line-height: 1;
+  box-shadow: none;
+  padding: 0;
+}
+
+.map-close:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+body.map-open {
+  overflow: hidden;
+}
+
+.js-enabled .fade-target {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --story-rise: clamp(240px, 52vh, 500px);
+  }
+
+  .invite {
+    padding: 0 0 96px;
+    gap: 0;
+  }
+
+  .hero {
+    min-height: 60vh;
+  }
+
+  .hero-content {
+    padding: 36px 32px 40px;
+  }
+
+  .timeline .label {
+    text-align: left;
+  }
+}
