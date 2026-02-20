@@ -11,12 +11,21 @@ const revealElement = (element) => {
 
 if (!prefersReducedMotion && parallaxItems.length) {
   let ticking = false;
-  let parallaxStarted = false;
+  const parallaxActivationDistance = 160;
 
   parallaxItems.forEach((item) => item.style.setProperty('--parallax-y', '0px'));
 
   const updateParallax = () => {
-    const scrollY = window.scrollY;
+    const scrollY = Math.max(window.scrollY, 0);
+
+    if (scrollY <= 0) {
+      parallaxItems.forEach((item) => item.style.setProperty('--parallax-y', '0px'));
+      ticking = false;
+      return;
+    }
+
+    const activation = Math.min(1, scrollY / parallaxActivationDistance);
+    const activationEase = Math.pow(activation, 1.8);
     const viewportCenter = scrollY + window.innerHeight * 0.5;
 
     parallaxItems.forEach((item) => {
@@ -26,7 +35,7 @@ if (!prefersReducedMotion && parallaxItems.length) {
       const offsetTop = rect.top + scrollY;
       const elementCenter = offsetTop + rect.height * 0.5;
       const distance = viewportCenter - elementCenter;
-      const translate = Math.max(-maxShift, Math.min(maxShift, distance * speed));
+      const translate = Math.max(-maxShift, Math.min(maxShift, distance * speed)) * activationEase;
 
       item.style.setProperty('--parallax-y', `${translate}px`);
     });
@@ -34,21 +43,13 @@ if (!prefersReducedMotion && parallaxItems.length) {
   };
 
   const onScroll = () => {
-    if (!parallaxStarted) {
-      if (window.scrollY <= 0) return;
-      parallaxStarted = true;
-    }
-
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(updateParallax);
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', () => {
-    if (!parallaxStarted) return;
-    onScroll();
-  });
+  window.addEventListener('resize', onScroll);
 } else {
   parallaxItems.forEach((item) => item.style.setProperty('--parallax-y', '0px'));
 }
