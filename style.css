@@ -18,6 +18,7 @@
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Marck Script", cursive;
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 55%, #fff 100%);
   color: var(--ink);

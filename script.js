@@ -11,6 +11,9 @@ const revealElement = (element) => {
 
 if (!prefersReducedMotion && parallaxItems.length) {
   let ticking = false;
+  let parallaxStarted = false;
+
+  parallaxItems.forEach((item) => item.style.setProperty('--parallax-y', '0px'));
 
   const updateParallax = () => {
     const scrollY = window.scrollY;
@@ -31,14 +34,21 @@ if (!prefersReducedMotion && parallaxItems.length) {
   };
 
   const onScroll = () => {
+    if (!parallaxStarted) {
+      if (window.scrollY <= 0) return;
+      parallaxStarted = true;
+    }
+
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(updateParallax);
   };
 
-  updateParallax();
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', () => {
+    if (!parallaxStarted) return;
+    onScroll();
+  });
 } else {
   parallaxItems.forEach((item) => item.style.setProperty('--parallax-y', '0px'));
 }
